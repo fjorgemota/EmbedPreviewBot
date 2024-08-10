@@ -77,7 +77,7 @@ func main() {
 			results := tele.Results{result}
 			return ctx.Answer(&tele.QueryResponse{
 				Results:   results,
-				CacheTime: 0,
+				CacheTime: 24 * 60 * 60, // One day
 			})
 		})
 	}
