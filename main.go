@@ -33,7 +33,7 @@ func main() {
 				"The bot will automatically transform Twitter and Instagram URLs to their equivalent versions for preview.\n"+
 				"You can find the source code for this bot on GitHub: [EmbedPreviewBot Repository](https://github.com/fjorgemota/EmbedPreviewBot)", "YourBotUsername", bot.Me.Username, -1)
 
-			return c.Send(message)
+			return c.Send(message, &tele.SendOptions{ParseMode: tele.ModeMarkdown})
 		})
 
 		bot.Handle(tele.OnQuery, func(ctx tele.Context) error {
