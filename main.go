@@ -29,7 +29,7 @@ func main() {
 				"2. For example, try entering:\n"+
 				"   - @YourBotUsername https://twitter.com/someuser/status/12345\n"+
 				"   - @YourBotUsername https://instagram.com/someuser\n\n"+
-				"The bot will automatically transform Twitter and Instagram URLs to optimized versions.\n", "YourBotUsername", bot.Me.Username, -1)
+				"The bot will automatically transform Twitter and Instagram URLs to their equivalent versions for preview.\n", "YourBotUsername", bot.Me.Username, -1)
 
 			return c.Send(message)
 		})
