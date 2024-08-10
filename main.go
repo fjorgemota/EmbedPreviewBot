@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 import tele "gopkg.in/telebot.v3"
@@ -20,6 +21,19 @@ func main() {
 	})
 
 	if err == nil {
+		// Handle /start command
+		bot.Handle("/start", func(c tele.Context) error {
+			message := strings.Replace("Welcome to YourBotUsername!\n\n"+
+				"This bot works only with inline queries. Here's how to use it:\n"+
+				"1. Open any chat (with this bot added) and type @YourBotUsername followed by a URL.\n"+
+				"2. For example, try entering:\n"+
+				"   - @YourBotUsername https://twitter.com/someuser/status/12345\n"+
+				"   - @YourBotUsername https://instagram.com/someuser\n\n"+
+				"The bot will automatically transform Twitter and Instagram URLs to optimized versions.\n", "YourBotUsername", bot.Me.Username, -1)
+
+			return c.Send(message)
+		})
+
 		bot.Handle(tele.OnQuery, func(ctx tele.Context) error {
 			query := ctx.Query().Text
 			if query == "" {
