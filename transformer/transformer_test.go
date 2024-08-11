@@ -61,6 +61,24 @@ func TestTransformURL(t *testing.T) {
 			expectingError: false,
 		},
 		{
+			name:           "YouTube URL without unneeded query string",
+			inputURL:       "https://www.youtube.com/watch?v=VIDEO_ID&t=123s",
+			expectedURL:    "https://yfxtube.com/watch?v=VIDEO_ID&t=123s",
+			expectingError: false,
+		},
+		{
+			name:           "YouTube URL with query string",
+			inputURL:       "https://www.youtube.com/watch?v=VIDEO_ID&t=123s&utm_source=ig_web_copy_link",
+			expectedURL:    "https://yfxtube.com/watch?t=123s&v=VIDEO_ID",
+			expectingError: false,
+		},
+		{
+			name:           "YouTu.be URL",
+			inputURL:       "https://youtu.be/VIDEO_ID",
+			expectedURL:    "https://fxyoutu.be/VIDEO_ID",
+			expectingError: false,
+		},
+		{
 			name:           "Invalid URL",
 			inputURL:       "https://invalid.com/somepath",
 			expectedURL:    "https://invalid.com/somepath",
