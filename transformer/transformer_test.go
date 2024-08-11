@@ -18,9 +18,10 @@ func TestTransformURL(t *testing.T) {
 			expectingError: false,
 		},
 		{
-			name:           "Twitter URL with query string",
-			inputURL:       "https://twitter.com/someuser/status/12345?ref_src=twsrc%5Etfw",
-			expectedURL:    "https://vxtwitter.com/someuser/status/12345",
+			name:     "Twitter URL with query string",
+			inputURL: "https://twitter.com/someuser/status/12345?ref_src=twsrc%5Etfw",
+			expectedURL: "https://v" +
+				"xtwitter.com/someuser/status/12345",
 			expectingError: false,
 		},
 		{
@@ -33,6 +34,30 @@ func TestTransformURL(t *testing.T) {
 			name:           "Instagram URL with query string",
 			inputURL:       "https://instagram.com/reels/abcd?utm_source=ig_web_copy_link",
 			expectedURL:    "https://ddinstagram.com/reels/abcd",
+			expectingError: false,
+		},
+		{
+			name:           "Reddit URL without query string",
+			inputURL:       "https://reddit.com/r/sub/comments/abcd",
+			expectedURL:    "https://rxddit.com/r/sub/comments/abcd",
+			expectingError: false,
+		},
+		{
+			name:           "Reddit URL with query string",
+			inputURL:       "https://reddit.com/r/sub/comments/abcd?utm_source=ig_web_copy_link",
+			expectedURL:    "https://rxddit.com/r/sub/comments/abcd",
+			expectingError: false,
+		},
+		{
+			name:           "Old Reddit URL without query string",
+			inputURL:       "https://old.reddit.com/r/sub/comments/abcd",
+			expectedURL:    "https://old.rxddit.com/r/sub/comments/abcd",
+			expectingError: false,
+		},
+		{
+			name:           "Old Reddit URL with query string",
+			inputURL:       "https://old.reddit.com/r/sub/comments/abcd?utm_source=ig_web_copy_link",
+			expectedURL:    "https://old.rxddit.com/r/sub/comments/abcd",
 			expectingError: false,
 		},
 		{

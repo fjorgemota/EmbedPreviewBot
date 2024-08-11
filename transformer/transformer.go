@@ -21,6 +21,10 @@ func TransformURL(inputURL string) (string, error) {
 		parsedURL.Host = "vxtwitter.com"
 	case "instagram.com", "www.instagram.com":
 		parsedURL.Host = "ddinstagram.com"
+	case "reddit.com", "www.reddit.com":
+		parsedURL.Host = "rxddit.com"
+	case "old.reddit.com":
+		parsedURL.Host = "old.rxddit.com"
 	default:
 		// Return the original URL if it's not from Twitter/X or Instagram
 		return inputURL, nil
