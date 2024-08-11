@@ -14,10 +14,11 @@ func main() {
 		Timeout: 60 * time.Second,
 	}
 	bot, err := initBot(botOptions{
-		Client:  client,
-		Token:   os.Getenv("BOT_TOKEN"),
-		BaseURL: os.Getenv("BASE_URL"),
-		Port:    os.Getenv("PORT"),
+		Client:   client,
+		Token:    os.Getenv("BOT_TOKEN"),
+		Username: os.Getenv("BOT_USERNAME"),
+		BaseURL:  os.Getenv("BASE_URL"),
+		Port:     os.Getenv("PORT"),
 	})
 
 	if err == nil {

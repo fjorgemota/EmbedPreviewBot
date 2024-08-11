@@ -9,10 +9,11 @@ import (
 )
 
 type botOptions struct {
-	Token   string
-	Client  *http.Client
-	BaseURL string
-	Port    string
+	Token    string
+	Username string
+	Client   *http.Client
+	BaseURL  string
+	Port     string
 }
 
 func initBot(options botOptions) (*tele.Bot, error) {
