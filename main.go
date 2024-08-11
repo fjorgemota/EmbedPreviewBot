@@ -2,12 +2,12 @@ package main
 
 import (
 	"github.com/fjorgemota/EmbedPreviewBot/handlers"
+	tele "gopkg.in/telebot.v3"
 	"log"
 	"net/http"
 	"os"
 	"time"
 )
-import tele "gopkg.in/telebot.v3"
 
 func main() {
 	client := &http.Client{
