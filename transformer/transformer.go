@@ -18,7 +18,7 @@ func TransformURL(inputURL string) (string, error) {
 	// Change the domain based on the input URL
 	switch parsedURL.Host {
 	case "twitter.com", "www.twitter.com", "x.com", "www.x.com":
-		parsedURL.Host = "fxtwitter.com"
+		parsedURL.Host = "vxtwitter.com"
 	case "instagram.com", "www.instagram.com":
 		parsedURL.Host = "ddinstagram.com"
 	default:
