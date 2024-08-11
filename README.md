@@ -10,7 +10,7 @@
 
 ## How to Use
 
-1. **Add the Bot**: You can use this bot in any Telegram chat where it is added.
+1. **No need to add the Bot**: You can use this bot in literally any Telegram chat, even private ones
 2. **Inline Query**: 
    - In any chat, type `@EmbedPreviewBot <URL>` to transform and share a URL.
    - For example:
