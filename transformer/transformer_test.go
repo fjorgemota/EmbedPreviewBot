@@ -14,13 +14,13 @@ func TestTransformURL(t *testing.T) {
 		{
 			name:           "Twitter URL without query string",
 			inputURL:       "https://twitter.com/someuser/status/12345",
-			expectedURL:    "https://fxtwitter.com/someuser/status/12345",
+			expectedURL:    "https://vxtwitter.com/someuser/status/12345",
 			expectingError: false,
 		},
 		{
 			name:           "Twitter URL with query string",
 			inputURL:       "https://twitter.com/someuser/status/12345?ref_src=twsrc%5Etfw",
-			expectedURL:    "https://fxtwitter.com/someuser/status/12345",
+			expectedURL:    "https://vxtwitter.com/someuser/status/12345",
 			expectingError: false,
 		},
 		{
