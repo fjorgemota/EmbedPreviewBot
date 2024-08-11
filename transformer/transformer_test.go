@@ -25,14 +25,14 @@ func TestTransformURL(t *testing.T) {
 		},
 		{
 			name:           "Instagram URL without query string",
-			inputURL:       "https://instagram.com/someuser",
-			expectedURL:    "https://ddinstagram.com/someuser",
+			inputURL:       "https://instagram.com/reels/abcd",
+			expectedURL:    "https://ddinstagram.com/reels/abcd",
 			expectingError: false,
 		},
 		{
 			name:           "Instagram URL with query string",
-			inputURL:       "https://instagram.com/someuser?utm_source=ig_web_copy_link",
-			expectedURL:    "https://ddinstagram.com/someuser",
+			inputURL:       "https://instagram.com/reels/abcd?utm_source=ig_web_copy_link",
+			expectedURL:    "https://ddinstagram.com/reels/abcd",
 			expectingError: false,
 		},
 		{
