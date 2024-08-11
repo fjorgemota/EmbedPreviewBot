@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	tele "gopkg.in/telebot.v3"
 	"log"
 	"net/http"
@@ -33,6 +34,9 @@ func initBot(options botOptions) (*tele.Bot, error) {
 	var bot *tele.Bot
 	if err == nil {
 		bot, err = tele.NewBot(botSettings)
+	}
+	if err == nil && options.Username != "" && bot.Me.Username != options.Username {
+		err = errors.New("bot username does not match the one provided")
 	}
 	return bot, err
 }
