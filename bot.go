@@ -59,6 +59,11 @@ func initWebhookPoller(options botOptions) (tele.Poller, error) {
 	}
 	if err == nil {
 		mux := http.NewServeMux()
+		if options.Username != "" {
+			mux.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				http.Redirect(w, r, "https://t.me/"+options.Username, http.StatusMovedPermanently)
+			}))
+		}
 		mux.Handle(urlPath.Path, handler)
 		mux.Handle("/status", http.HandlerFunc(statusEndpoint))
 		go func() {
