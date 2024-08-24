@@ -7,26 +7,25 @@ import (
 )
 
 func OnTextHandler(ctx tele.Context) error {
+	if ctx.Message() == nil {
+		return ctx.Reply("No message found in the context.")
+	}
+
 	msg := ctx.Message().Text
 	if msg == "" {
-		return nil
+		return ctx.Reply("Empty message received. Please provide a URL.")
 	}
 
 	transformedURL, localErr := transformer.TransformURL(msg)
 	if localErr != nil {
 		log.Printf("Error transforming URL: %v, User Query: %s", localErr, msg)
-		return ctx.Reply(&tele.Message{
-			Text: "Invalid URL provided. Please check it. The provided URL could not be processed.",
+		return ctx.Reply("**Invalid URL provided. Please check it**. \n The provided URL could not be processed.", &tele.SendOptions{
+			ParseMode: tele.ModeMarkdown,
 		})
 	}
 
-	result := tele.Message{
-		Text: transformedURL,
-	}
-	result.PreviewOptions = &tele.PreviewOptions{
-		LargeMedia: true,
-		URL:        transformedURL,
-	}
-
-	return ctx.Reply(&result)
+	return ctx.Reply(transformedURL, &tele.SendOptions{
+		ParseMode:             tele.ModeMarkdown,
+		DisableWebPagePreview: false,
+	})
 }
