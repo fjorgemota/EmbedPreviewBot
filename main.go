@@ -26,6 +26,8 @@ func main() {
 		bot.Handle("/start", handlers.StartCommand)
 		// Handle inline queries
 		bot.Handle(tele.OnQuery, handlers.OnQueryHandler)
+		// Handle direct messages
+		bot.Handle(tele.OnText, handlers.OnTextHandler)
 	}
 	if err != nil {
 		log.Fatal(err)
