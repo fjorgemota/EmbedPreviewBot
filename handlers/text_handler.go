@@ -20,7 +20,7 @@ func OnTextHandler(ctx tele.Context) error {
 	transformedURL, localErr := transformer.TransformURL(msg)
 	if localErr != nil {
 		log.Printf("Error transforming URL: %v, User Query: %s", localErr, msg)
-		return ctx.Reply("**Invalid URL provided\\. Please check it**\\. \n The provided URL could not be processed\\.", &tele.SendOptions{
+		return ctx.Reply("**Invalid URL provided\\. Please check it\\.**\n The provided URL could not be processed\\.", &tele.SendOptions{
 			ParseMode: tele.ModeMarkdownV2,
 		})
 	}
