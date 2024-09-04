@@ -23,13 +23,14 @@ func initBot(options botOptions) (*tele.Bot, error) {
 		Token:  options.Token,
 		Client: options.Client,
 	}
-	if options.BaseURL == "" || options.Port == "" {
+	if options.BaseURL != "" || options.Port != "" {
+		botSettings.Poller, err = initWebhookPoller(options)
+	}
+	if botSettings.Poller == nil && err == nil {
 		log.Printf("Polling Telegram API")
 		botSettings.Poller = &tele.LongPoller{
 			Timeout: 60 * time.Second,
 		}
-	} else {
-		botSettings.Poller, err = initWebhookPoller(options)
 	}
 	var bot *tele.Bot
 	if err == nil {
@@ -42,19 +43,27 @@ func initBot(options botOptions) (*tele.Bot, error) {
 }
 
 func initWebhookPoller(options botOptions) (tele.Poller, error) {
-	log.Printf("Listening to Webhook")
-	var urlPath *url.URL
-	var handler *tele.Webhook
-	parsedBaseUrl, err := url.Parse(options.BaseURL)
-	if err == nil {
-		urlPath, err = url.Parse("/" + options.Token)
+	if options.Port == "" {
+		return nil, nil
 	}
-	if err == nil {
-		fullUrl := parsedBaseUrl.ResolveReference(urlPath)
-		handler = &tele.Webhook{
-			Endpoint: &tele.WebhookEndpoint{
-				PublicURL: fullUrl.String(),
-			},
+	log.Printf("Starting server")
+	var handler *tele.Webhook
+	var urlPath *url.URL
+	var err error
+	if options.BaseURL != "" {
+		log.Printf("Listening to Webhook")
+		var parsedBaseUrl *url.URL
+		parsedBaseUrl, err = url.Parse(options.BaseURL)
+		if err == nil {
+			urlPath, err = url.Parse("/" + options.Token)
+		}
+		if err == nil && options.BaseURL != "" {
+			fullUrl := parsedBaseUrl.ResolveReference(urlPath)
+			handler = &tele.Webhook{
+				Endpoint: &tele.WebhookEndpoint{
+					PublicURL: fullUrl.String(),
+				},
+			}
 		}
 	}
 	if err == nil {
@@ -64,7 +73,9 @@ func initWebhookPoller(options botOptions) (tele.Poller, error) {
 				http.Redirect(w, r, "https://t.me/"+options.Username, http.StatusMovedPermanently)
 			}))
 		}
-		mux.Handle(urlPath.Path, handler)
+		if handler != nil {
+			mux.Handle(urlPath.Path, handler)
+		}
 		mux.Handle("/status", http.HandlerFunc(statusEndpoint))
 		go func() {
 			serveErr := http.ListenAndServe(":"+options.Port, mux)
