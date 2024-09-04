@@ -29,6 +29,7 @@ func OnTextHandler(ctx tele.Context) error {
 	transformedURL = strings.ReplaceAll(transformedURL, "*", "\\*")
 	transformedURL = strings.ReplaceAll(transformedURL, "[", "\\[")
 	transformedURL = strings.ReplaceAll(transformedURL, "`", "\\`")
+	transformedURL = strings.ReplaceAll(transformedURL, ".", "\\.")
 
 	return ctx.Reply(transformedURL, &tele.SendOptions{
 		ParseMode:             tele.ModeMarkdownV2,
