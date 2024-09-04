@@ -26,6 +26,7 @@ func OnTextHandler(ctx tele.Context) error {
 	}
 
 	transformedURL = strings.ReplaceAll(transformedURL, "_", "\\_")
+	transformedURL = strings.ReplaceAll(transformedURL, "-", "\\-")
 	transformedURL = strings.ReplaceAll(transformedURL, "*", "\\*")
 	transformedURL = strings.ReplaceAll(transformedURL, "[", "\\[")
 	transformedURL = strings.ReplaceAll(transformedURL, "`", "\\`")
