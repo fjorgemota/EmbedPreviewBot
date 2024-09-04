@@ -4,6 +4,7 @@ import (
 	"github.com/fjorgemota/EmbedPreviewBot/transformer"
 	tele "gopkg.in/telebot.v3"
 	"log"
+	"strings"
 )
 
 func OnTextHandler(ctx tele.Context) error {
@@ -23,6 +24,11 @@ func OnTextHandler(ctx tele.Context) error {
 			ParseMode: tele.ModeMarkdownV2,
 		})
 	}
+
+	transformedURL = strings.ReplaceAll(transformedURL, "_", "\\_")
+	transformedURL = strings.ReplaceAll(transformedURL, "*", "\\*")
+	transformedURL = strings.ReplaceAll(transformedURL, "[", "\\[")
+	transformedURL = strings.ReplaceAll(transformedURL, "`", "\\`")
 
 	return ctx.Reply(transformedURL, &tele.SendOptions{
 		ParseMode:             tele.ModeMarkdownV2,
