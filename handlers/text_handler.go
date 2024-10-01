@@ -13,16 +13,27 @@ func OnTextHandler(ctx tele.Context) error {
 	}
 
 	msg := ctx.Message().Text
+	isPrivate := ctx.Message().Chat.Type == tele.ChatPrivate
 	if msg == "" {
-		return ctx.Reply("Empty message received. Please provide a URL.")
+		if isPrivate {
+			return ctx.Reply("Empty message received. Please provide a URL.")
+		}
+		return nil
 	}
 
 	transformedURL, localErr := transformer.TransformURL(msg)
 	if localErr != nil {
-		log.Printf("Error transforming URL: %v, User Query: %s", localErr, msg)
-		return ctx.Reply("**Invalid URL provided\\. Please check it\\.**\n The provided URL could not be processed\\.", &tele.SendOptions{
-			ParseMode: tele.ModeMarkdownV2,
-		})
+		if isPrivate {
+			log.Printf("Error transforming URL: %v, User Query: %s", localErr, msg)
+			return ctx.Reply("**Invalid URL provided\\. Please check it\\.**\n The provided URL could not be processed\\.", &tele.SendOptions{
+				ParseMode: tele.ModeMarkdownV2,
+			})
+		}
+		return nil
+	}
+
+	if transformedURL == msg && !isPrivate {
+		return nil
 	}
 
 	transformedURL = strings.ReplaceAll(transformedURL, "_", "\\_")
