@@ -20,7 +20,7 @@ func TransformURL(inputURL string) (string, error) {
 	case "twitter.com", "www.twitter.com", "x.com", "www.x.com":
 		parsedURL.Host = "vxtwitter.com"
 	case "instagram.com", "www.instagram.com":
-		parsedURL.Host = "ddinstagram.com"
+		parsedURL.Host = "kkinstagram.com"
 	case "reddit.com", "www.reddit.com":
 		parsedURL.Host = "rxddit.com"
 	case "old.reddit.com":
